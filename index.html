@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="AI World Daily — daily, source-backed artificial intelligence updates." />
+    <title>AI World Daily</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; background: #080d18; color: #f6f8fc; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 20% 0%, #16305b, transparent 45%), #080d18; }
+      main { width: min(720px, calc(100% - 40px)); padding: 48px 0; }
+      .eyebrow { color: #61a7ff; font-weight: 800; letter-spacing: .12em; font-size: .78rem; }
+      h1 { font-size: clamp(2.6rem, 8vw, 5rem); line-height: .95; margin: 16px 0; letter-spacing: -.06em; }
+      p { color: #a8b4c9; font-size: 1.1rem; line-height: 1.6; max-width: 570px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 44px; }
+      a { border-radius: 12px; padding: 13px 18px; text-decoration: none; font-weight: 800; color: #fff; background: #276ef1; }
+      a.secondary { background: #172742; color: #9bc5ff; }
+      section { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+      article { border: 1px solid #26334b; background: #111a2b; border-radius: 16px; padding: 18px; }
+      article strong { display: block; margin-bottom: 7px; } article span { color: #96a1b8; font-size: .92rem; line-height: 1.45; }
+      footer { margin-top: 42px; color: #68738a; font-size: .85rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">AI WORLD DAILY</div>
+      <h1>Understand AI.<br />Every day.</h1>
+      <p>A single-screen, source-transparent AI news experience with category filters, company updates, bookmarks, and pull-to-refresh support.</p>
+      <div class="actions">
+        <a href="README.md">Read the setup guide</a>
+        <a class="secondary" href="https://github.com/umeshpkhiste-uk/ai-world-daily">View on GitHub</a>
+      </div>
+      <section aria-label="Project features">
+        <article><strong>Source-backed</strong><span>Original publisher links stay attached to every update.</span></article>
+        <article><strong>Single screen</strong><span>Search, filters, saved stories, and settings stay in one flow.</span></article>
+        <article><strong>Cross-platform</strong><span>Expo client for Android and iOS with a TypeScript API.</span></article>
+      </section>
+      <footer>Development landing page · Configure live RSS feeds before production.</footer>
+    </main>
+  </body>
+</html>
