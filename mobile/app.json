@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "AI World Daily",
+    "slug": "ai-world-daily",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "aiworlddaily",
+    "android": {
+      "package": "com.yourcompany.aiworlddaily",
+      "adaptiveIcon": {
+        "backgroundColor": "#08101F"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.yourcompany.aiworlddaily",
+      "supportsTablet": true
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

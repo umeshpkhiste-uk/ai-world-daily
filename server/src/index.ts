@@ -1,0 +1,13 @@
+import 'dotenv/config'; import cors from 'cors'; import express from 'express';
+import { collectNews } from './news.js'; import type { NewsItem, Preferences } from './types.js';
+const app = express(); app.use(cors({ origin: process.env.CORS_ORIGIN || '*' })); app.use(express.json());
+let news: NewsItem[] = []; const bookmarks = new Map<string, NewsItem>(); let preferences: Preferences = { interests: [], theme: 'system', notifications: 'disabled' };
+async function refresh() { news = await collectNews(); return news; }
+app.get('/health', (_req,res) => res.json({ ok: true }));
+app.get('/news', async (req,res) => { if (!news.length) await refresh(); const q = String(req.query.q || '').toLowerCase(); const category = String(req.query.category || 'All'); res.json(news.filter(n => (category === 'All' || n.category === category) && (!q || `${n.title} ${n.summary} ${n.category}`.toLowerCase().includes(q)))); });
+app.post('/refresh-news', async (_req,res) => res.json(await refresh()));
+app.get('/news/trending', async (_req,res) => { if (!news.length) await refresh(); const terms = ['AI Agents','Generative AI','AI Research','AI Products','AI Regulation','AI Business']; res.json(terms.map(topic => ({ topic, count: news.filter(n => `${n.title} ${n.summary}`.toLowerCase().includes(topic.toLowerCase().split(' ')[1] || topic.toLowerCase())).length }))); });
+app.get('/company/:companyName/updates', async (req,res) => { if (!news.length) await refresh(); const name = decodeURIComponent(req.params.companyName).trim(); const matching = news.filter(n => `${n.title} ${n.summary}`.toLowerCase().includes(name.toLowerCase())).slice(0,10); res.json({ company: name, updates: matching, requestedCount: 10, availabilityNote: matching.length < 10 ? `Only ${matching.length} reliable, source-backed recent update(s) were found. Unavailable numbered slots must not be treated as news.` : undefined }); });
+app.get('/bookmarks', (_req,res) => res.json([...bookmarks.values()])); app.post('/bookmarks', (req,res) => { const item = req.body as NewsItem; if (!item?.id || !item.sourceUrl) return res.status(400).json({ error: 'A valid news item is required.' }); bookmarks.set(item.id,item); res.status(201).json(item); }); app.delete('/bookmarks/:id', (req,res) => { bookmarks.delete(req.params.id); res.status(204).send(); });
+app.get('/preferences', (_req,res) => res.json(preferences)); app.put('/preferences', (req,res) => { preferences = { ...preferences, ...req.body }; res.json(preferences); });
+app.listen(Number(process.env.PORT || 4000), () => console.log(`AI World Daily API on :${process.env.PORT || 4000}`));

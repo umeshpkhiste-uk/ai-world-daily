@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest'; import { categoryFor, deduplicate } from './news.js'; import type { NewsItem } from './types.js';
+const item = (title: string): NewsItem => ({ id:title, title, summary:'', category:'General AI', sourceName:'Source', sourceUrl:`https://x/${title}`, publishedAt:new Date().toISOString(), importanceScore:1 });
+describe('news intelligence', () => { it('assigns regulation content correctly', () => expect(categoryFor('EU AI regulation is adopted')).toBe('AI Regulations')); it('groups duplicate headlines', () => expect(deduplicate([item('OpenAI launches new model today'), item('OpenAI launches new model today globally')])).toHaveLength(1)); });
